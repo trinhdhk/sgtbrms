@@ -26,7 +26,7 @@ X_sgt <- sgtbrms:::.__brm_wrap__('X')
 ```
 where X is a function in `brms`.
 
-All code is based on the implementation is R package `sgt` by Carter Davis.
+All code is based on the implementation in the R package `sgt` by Carter Davis.
 
 Trinh Dong, 2023.
 
