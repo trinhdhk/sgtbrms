@@ -1,0 +1,16 @@
+Package: sgtbrms
+Type: Package
+Title: Custom brmsfamily for fitting Skew generalised T regression model
+Version: 0.1.0
+Author: Trinh Dong <trinhdhk@oucru.org>
+Maintainer: Trinh Dong <trinhdhk@oucru.org>
+Description: Custom brmsfamily for fitting Skew generalised T regression model. 
+License: MIT
+Imports: 
+  rlang,
+  rstan (>= 2.32)
+Depends:
+  brms
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
