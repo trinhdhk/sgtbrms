@@ -49,7 +49,7 @@ posterior_predict_skew_t <- function(i, prep, ...) {
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
   p <- 2
   q <- brms::get_dpar(prep, "q", i=i)
-  sapply(sgt::rsgt,
+  mapply(sgt::rsgt,
          n=1,
          mu=mu,
          sigma=sigma,
