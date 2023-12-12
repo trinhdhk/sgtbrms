@@ -74,13 +74,14 @@ log_lik_sgt <- function(i, prep) {
   p <- brms::get_dpar(prep, "p", i=i)
   q <- brms::get_dpar(prep, "q", i=i)
   y <- prep$data$Y[i]
-  sgt::dsgt(y,
-            mu=mu,
-            sigma=sigma,
-            lambda=lambdap1half*2-1,
-            p=p,
-            q=q,
-            mean.cent=FALSE, var.adj=FALSE)
+  mapply(sgt::dsgt,
+         x = y,
+         mu=mu,
+         sigma=sigma,
+         lambda=lambdap1half*2-1,
+         p=p,
+         q=q,
+         mean.cent=FALSE, var.adj=FALSE)
 }
 
 #' @rdname brms-methods
@@ -90,7 +91,7 @@ posterior_predict_sgt <- function(i, prep, ...) {
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
   p <- brms::get_dpar(prep, "p", i=i)
   q <- brms::get_dpar(prep, "q", i=i)
-  sgt::rsgt(1,
+  mapply(sgt::rsgt, n=1,
             mu=mu,
             sigma=sigma,
             lambda=lambdap1half*2-1,
