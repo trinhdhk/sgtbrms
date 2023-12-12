@@ -32,13 +32,14 @@ log_lik_skew_t <- function(i, prep) {
   p <- 2
   q <- brms::get_dpar(prep, "q", i=i)
   y <- prep$data$Y[i]
-  sgt::dsgt(y,
-            mu=mu,
-            sigma=sigma,
-            lambda=lambdap1half*2-1,
-            p=p,
-            q=q,
-            mean.cent=FALSE, var.adj=FALSE)
+  mapply(sgt::dsgt,
+         x=y,
+         mu=mu,
+         sigma=sigma,
+         lambda=lambdap1half*2-1,
+         p=p,
+         q=q,
+         mean.cent=FALSE, var.adj=FALSE)
 }
 
 #' @rdname brms-methods
@@ -48,13 +49,14 @@ posterior_predict_skew_t <- function(i, prep, ...) {
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
   p <- 2
   q <- brms::get_dpar(prep, "q", i=i)
-  sgt::rsgt(1,
-            mu=mu,
-            sigma=sigma,
-            lambda=lambdap1half*2-1,
-            p=p,
-            q=q,
-            mean.cent=FALSE, var.adj=FALSE)
+  sapply(sgt::rsgt,
+         n=1,
+         mu=mu,
+         sigma=sigma,
+         lambda=lambdap1half*2-1,
+         p=p,
+         q=q,
+         mean.cent=FALSE, var.adj=FALSE)
 }
 
 #' @rdname brms-methods

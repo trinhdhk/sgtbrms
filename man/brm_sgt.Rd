@@ -8,7 +8,7 @@ brm_sgt(
   formula,
   data,
   family = sgt(),
-  prior = NULL,
+  prior = sgt_default_prior(),
   autocor = NULL,
   data2 = NULL,
   cov_ranef = NULL,

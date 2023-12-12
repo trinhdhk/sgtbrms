@@ -2,6 +2,7 @@
   fn <- get(brm_fn, envir=asNamespace('brms'))
   old_arg <- rlang::fn_fmls(fn)
   old_arg$family <- quote(sgt())
+  old_arg$prior <- quote(sgt_default_prior())
   rlang::new_function(args=old_arg,
                       body = eval(enquote(substitute({
                         args <- rlang::fn_fmls_syms()
@@ -25,6 +26,12 @@
 brm_sgt <- .__brm_wrap__('brm')
 
 #' @rdname brmsgt
+#' @inheritParams brms::make_stancode
 #' @export
 make_stancode_sgt <- .__brm_wrap__('make_stancode')
+
+#' @rdname brmsgt
+#' @inheritParams brms::make_standata
+#' @export
+make_standata_sgt <- .__brm_wrap__('make_standata')
 

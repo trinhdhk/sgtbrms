@@ -8,7 +8,9 @@ Description: Custom brmsfamily for fitting Skew generalised T regression model.
 License: MIT
 Imports: 
   rlang,
-  rstan (>= 2.32)
+  rstan (>= 2.32),
+  cli,
+  sgt
 Depends:
   brms
 Encoding: UTF-8
