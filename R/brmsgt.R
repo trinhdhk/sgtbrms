@@ -1,4 +1,4 @@
-.__brm_wrap__ <- function(brm_fn = ''){
+.__brm_wrap__ <- function(brm_fn = '', .report_call = FALSE){
   fn <- get(brm_fn, envir=asNamespace('brms'))
   old_arg <- rlang::fn_fmls(fn)
   old_arg$family <- quote(sgt())
@@ -6,11 +6,12 @@
   rlang::new_function(args=old_arg,
                       body = eval(enquote(substitute({
                         args <- rlang::fn_fmls_syms()
-                        stancode <- brms::stanvar(scode=paste(readLines(system.file('stan', 'sgt.stan', package = 'sgtbrms')), collapse = '\n'), block = 'functions')
-                        args$stanvars <- append(
-                          substitute(stanvars),
-                          rlang::enexpr(stancode)
-                        )
+                        args_sub <- rlang::fn_fmls()
+                        if (family$name == "skew_t" && (!length(match.call()$prior)))
+                          args$prior <- quote(skew_t_default_prior())
+                        sgt_vars <- brms::stanvar(scode=paste(readLines(system.file('stan', 'sgt.stan', package = 'sgtbrms')), collapse = '\n'), block = 'functions')
+                        args$stanvars <- quote(c(sgt_vars, stanvars))
+                        if (.report_call) cat('Call to: ', deparse1(rlang::call2(brm_fn, !!!args, .ns='brms')), '\n')
                         rlang::eval_tidy(rlang::call2(brm_fn, !!!args, .ns='brms'))
                       }))))
 }
