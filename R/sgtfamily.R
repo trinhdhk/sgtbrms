@@ -81,7 +81,7 @@ log_lik_sgt <- function(i, prep) {
          lambda=lambdap1half*2-1,
          p=p,
          q=q,
-         mean.cent=FALSE, var.adj=FALSE)
+         mean.cent=FALSE, var.adj=FALSE,log=TRUE)
 }
 
 #' @rdname brms-methods
