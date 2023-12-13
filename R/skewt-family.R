@@ -5,8 +5,8 @@ skew_t_default_prior <- function(params = 'all', exclude=FALSE){
   if ('all' %in% params) {
     if (exclude) stop("Are you sure?") else params <- which
   }
-  include <- if (exclude) which(!which%in%params) else which(which%in%params)
-  sgt_default_prior(params[params!='p'], exclude=FALSE)
+  include <- if (exclude) (!which%in%params) else (which%in%params)
+  sgt_default_prior(which[include][which!='p'], exclude=FALSE)
 }
 
 #' @rdname sgt

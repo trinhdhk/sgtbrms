@@ -46,9 +46,9 @@ sgt_default_prior <- function(params = 'all', exclude=FALSE){
   default_priors <-
     list(
       brms::prior(student_t(3, 0, 2.5), class='sigma', lb=0),
-      brms::prior(beta(1,1), class='lambdap1half', lb=0, ub=1),
-      brms::prior(gamma(2, .1), class='p', lb=0),
-      brms::prior(gamma(2, .1), class='q', lb=0)
+      brms::prior(beta(2,2), class='lambdap1half', lb=0, ub=1),
+      brms::prior(gamma(3, .1), class='p', lb=0),
+      brms::prior(gamma(3, .1), class='q', lb=0)
     )
 
   which <- c('sigma', 'lambdap1half', 'p', 'q')
