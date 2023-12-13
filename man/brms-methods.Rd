@@ -30,5 +30,5 @@ posterior_epred_skew_t(prep)
 Some prediction methods for brms sgt family. For internal use of brms methods only
 }
 \seealso{
-[brms:loglik()], [brms:posterior_predict()], [brms:posterior_epred()]
+\link[brms]{log_lik} \link[brms]{posterior_predict} \link[brms]{posterior_epred}
 }

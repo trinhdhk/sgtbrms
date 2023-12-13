@@ -4,13 +4,13 @@
 #' @param link_sigma (character, default: exp)  link function for the scale of SGT distribution
 #' @param link_p,link_q (character, default: exp)  link function for the kurtosis parameters of SGT distribution
 #' @param link_lambdap1half (character, default: logit) link function for the skew parameter of SGT distribution.
-#' Note that the actual skew parameter of SGT is lambda where -1 \code{\leq} lambda \code{\leq} 1.
+#' Note that the actual skew parameter of SGT is lambda where -1 < lambda < 1.
 #' A proper link function shall be \emph{tanh}.
-#' However, due to brms's limit options for link function, we lambda to lambdap1half = \frac{lamba+1}{2} and use the logit link.
+#' However, due to brms's limit options for link function, we lambda to lambdap1half = \eqn{\frac{lambda+1}{2}} and use the logit link.
 #' Hence the name "lambda p(lus) 1 then half".
 #' @return a `brms::custom_family` object
 #' @importFrom brms custom_family
-#' @seealso [sgt:dsgt()]
+#' @seealso \link[brms]{dsgt}
 #' @export
 #' @examples
 #' x <- rnorm(1000, 0, 1)
@@ -41,7 +41,7 @@ sgt <- function(link_mu='identity', link_sigma='identity', link_p='log', link_q=
 #'
 #' @return object of class `brmsprior`
 #' @export
-#' @seealso [brms:brmsprior()]
+#' @seealso \link[brms]{prior}
 sgt_default_prior <- function(params = 'all', exclude=FALSE){
   default_priors <-
     list(
@@ -64,7 +64,7 @@ sgt_default_prior <- function(params = 'all', exclude=FALSE){
 #' Downstream methods for sgt family
 #' @rdname brms-methods
 #' @description Some prediction methods for brms sgt family. For internal use of brms methods only
-#' @seealso [brms:loglik()], [brms:posterior_predict()], [brms:posterior_epred()]
+#' @seealso \link[brms]{log_lik} \link[brms]{posterior_predict} \link[brms]{posterior_epred}
 #' @param i iteration
 #' @param prep a brms prepared object
 log_lik_sgt <- function(i, prep) {

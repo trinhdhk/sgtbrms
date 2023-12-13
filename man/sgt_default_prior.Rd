@@ -26,5 +26,5 @@ Importance notice that if you model lambdap1half as a sub-model, be aware that o
 for intercept is logistic(0, 1) and NOT flat.
 }
 \seealso{
-[brms:brmsprior()]
+\link[brms]{prior}
 }

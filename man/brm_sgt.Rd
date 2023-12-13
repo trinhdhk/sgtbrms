@@ -2,6 +2,8 @@
 % Please edit documentation in R/brmsgt.R
 \name{brm_sgt}
 \alias{brm_sgt}
+\alias{make_stancode_sgt}
+\alias{make_standata_sgt}
 \title{Wrapper functions fitting brm model for sgt and skew_t families}
 \usage{
 brm_sgt(
@@ -46,6 +48,42 @@ brm_sgt(
   file_refit = getOption("brms.file_refit", "never"),
   empty = FALSE,
   rename = TRUE,
+  ...
+)
+
+make_stancode_sgt(
+  formula,
+  data,
+  family = sgt(),
+  prior = sgt_default_prior(),
+  autocor = NULL,
+  data2 = NULL,
+  cov_ranef = NULL,
+  sparse = NULL,
+  sample_prior = "no",
+  stanvars = NULL,
+  stan_funs = NULL,
+  knots = NULL,
+  drop_unused_levels = TRUE,
+  threads = getOption("brms.threads", NULL),
+  normalize = getOption("brms.normalize", TRUE),
+  save_model = NULL,
+  ...
+)
+
+make_standata_sgt(
+  formula,
+  data,
+  family = sgt(),
+  prior = sgt_default_prior(),
+  autocor = NULL,
+  data2 = NULL,
+  cov_ranef = NULL,
+  sample_prior = "no",
+  stanvars = NULL,
+  threads = getOption("brms.threads", NULL),
+  knots = NULL,
+  drop_unused_levels = TRUE,
   ...
 )
 }
@@ -326,5 +364,5 @@ same as original function
 These functions callback to corresponding functions in brms package but with added stan codes for SGT and skew_t families
 }
 \seealso{
-[brms:brm()]
+\link[brms]{brm}
 }

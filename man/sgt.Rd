@@ -28,9 +28,9 @@ skew_t(
 \item{link_p, link_q}{(character, default: exp)  link function for the kurtosis parameters of SGT distribution}
 
 \item{link_lambdap1half}{(character, default: logit) link function for the skew parameter of SGT distribution.
-Note that the actual skew parameter of SGT is lambda where -1 \code{\leq} lambda \code{\leq} 1.
+Note that the actual skew parameter of SGT is lambda where -1 < lambda < 1.
 A proper link function shall be \emph{tanh}.
-However, due to brms's limit options for link function, we lambda to lambdap1half = \frac{lamba+1}{2} and use the logit link.
+However, due to brms's limit options for link function, we lambda to lambdap1half = \eqn{\frac{lambda+1}{2}} and use the logit link.
 Hence the name "lambda p(lus) 1 then half".}
 }
 \value{
@@ -45,5 +45,5 @@ y <- 3*x + 3*rt(1000,3,0)
 model <- brm_sgt(y ~ x, family=sgt(), prior=c(sgt_default_prior()), data=data.frame(x=x, y=y), chains=1, iter=1000)
 }
 \seealso{
-[sgt:dsgt()]
+\link[brms]{dsgt}
 }

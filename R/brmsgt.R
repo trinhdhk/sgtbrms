@@ -21,17 +21,17 @@
 #' Wrapper functions fitting brm model for sgt and skew_t families
 #' @description These functions callback to corresponding functions in brms package but with added stan codes for SGT and skew_t families
 #' @inheritParams brms::brm
-#' @seealso [brms:brm()]
+#' @seealso \link[brms]{brm}
 #' @export
 #' @return same as original function
 brm_sgt <- .__brm_wrap__('brm')
 
-#' @rdname brmsgt
+#' @rdname brm_sgt
 #' @inheritParams brms::make_stancode
 #' @export
 make_stancode_sgt <- .__brm_wrap__('make_stancode')
 
-#' @rdname brmsgt
+#' @rdname brm_sgt
 #' @inheritParams brms::make_standata
 #' @export
 make_standata_sgt <- .__brm_wrap__('make_standata')
