@@ -7,7 +7,7 @@ constrained_skew_t <- function(link='identity', link_sigma='log', link_qmhalf='l
     dpars=c('mu', 'sigma', 'lambdap1half', 'qmhalf'),
     lb = c(NA, 0, 0, 0),
     ub = c(NA, NA, 1, NA),
-    links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, qmhalf=link_qmhalf, pq=link_q),
+    links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, qmhalf=link_qmhalf),
     posterior_predict = posterior_predict_constrained_skew_t,
     posterior_epred = posterior_epred_constrained_skew_t,
     log_lik = log_lik_constrained_skew_t
