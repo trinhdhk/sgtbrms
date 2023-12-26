@@ -1,13 +1,18 @@
 #' Skew generalised T family for brms model
 #' @description Create a custom family object for brms model
-#' @param link_mu (character, default: identity) link function for the mode of SGT distribution
-#' @param link_sigma (character, default: exp)  link function for the scale of SGT distribution
-#' @param link_p,link_q (character, default: exp)  link function for the kurtosis parameters of SGT distribution
+#' @param link (character, default: identity) link function for the mode of SGT distribution
+#' @param link_sigma (character, default: log)  link function for the scale of SGT distribution
+#' @param link_p,link_q (character, default: log)  link function for the kurtosis parameters of SGT distribution
 #' @param link_lambdap1half (character, default: logit) link function for the skew parameter of SGT distribution.
 #' Note that the actual skew parameter of SGT is lambda where -1 < lambda < 1.
 #' A proper link function shall be \emph{tanh}.
 #' However, due to brms's limit options for link function, we lambda to lambdap1half = \eqn{\frac{lambda+1}{2}} and use the logit link.
 #' Hence the name "lambda p(lus) 1 then half".
+#' @details
+#' The constrained_ versions constraint p*q > 1 to ensure identifiability of the mean,
+#' but not as "generalised" due to the exclusion of the Cauchy-related branch.
+#' The mu of the param is still the mode though.
+#'
 #' @return a `brms::custom_family` object
 #' @importFrom brms custom_family
 #' @seealso \link[brms]{dsgt}
@@ -16,13 +21,13 @@
 #' x <- rnorm(1000, 0, 1)
 #' y <- 3*x + 3*rt(1000,3,0)
 #' model <- brm_sgt(y ~ x, family=sgt(), prior=c(sgt_default_prior()), data=data.frame(x=x, y=y), chains=1, iter=1000)
-sgt <- function(link_mu='identity', link_sigma='identity', link_p='log', link_q='log', link_lambdap1half='logit'){
+sgt <- function(link='identity', link_sigma='log', link_p='log', link_q='log', link_lambdap1half='logit'){
   brms::custom_family(
     name='sgt',
     dpars=c('mu', 'sigma', 'lambdap1half', 'p', 'q'),
     lb = c(NA, 0, 0, 0, 0),
     ub = c(NA, NA, 1, NA, NA),
-    links=c(mu='identity', sigma='log', lambdap1half='logit', p='log', q='log'),
+    links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, p=link_p, q=link_q),
     posterior_predict = posterior_predict_sgt,
     posterior_epred = posterior_epred_sgt,
     log_lik = log_lik_sgt

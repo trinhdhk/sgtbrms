@@ -11,13 +11,13 @@ skew_t_default_prior <- function(params = 'all', exclude=FALSE){
 
 #' @rdname sgt
 #' @export
-skew_t <- function(link_mu='identity', link_sigma='identity', link_q='log', link_lambdap1half='logit'){
+skew_t <- function(link='identity', link_sigma='log', link_q='log', link_lambdap1half='logit'){
   brms::custom_family(
     name='skew_t',
     dpars=c('mu', 'sigma', 'lambdap1half', 'q'),
     lb = c(NA, 0, 0, 0),
     ub = c(NA, NA, 1, NA),
-    links=c(mu='identity', sigma='log', lambdap1half='logit', q='log'),
+    links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, q=link_q),
     posterior_predict = posterior_predict_skew_t,
     posterior_epred = posterior_epred_skew_t,
     log_lik = log_lik_skew_t

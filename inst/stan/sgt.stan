@@ -50,9 +50,12 @@ real sgt_lcdf(real x, real mu, real sigma, real lambdap1half, real p, real q){
   return(out);
 }
 
+
 real sgt_lccdf(real x, real mu, real sigma, real lambdap1half, real p, real q){
   return(log(1-exp(sgt_lcdf(x | mu, sigma, lambdap1half, p, q))));
 }
+
+// Skew T distribution
 
 real skew_t_lpdf(real x, real mu, real sigma, real lambdap1half, real q){
   return(sgt_lpdf(x | mu, sigma, lambdap1half, 2, q));
@@ -66,6 +69,50 @@ real skew_t_lccdf(real x, real mu, real sigma, real lambdap1half, real q){
   return(sgt_lccdf(x | mu, sigma, lambdap1half, 2, q));
 }
 
-real skew_t_rng(real mu, real sigma, real lambdap1half, real p, real q){
+real skew_t_rng(real mu, real sigma, real lambdap1half, real q){
+  return(sgt_rng(mu, sigma, lambdap1half, 2, q));
+}
+
+// Constrained SGT distribution
+
+real constrained_sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real pq, real q){
+  real p = pq / q;
+  return(sgt_lpdf(x | mu, sigma, lambdap1half, p, q));
+}
+
+real constrained_sgt_lcdf(real x, real mu, real sigma, real lambdap1half, real pq, real q){
+  real p = pq / q;
+  return(sgt_lcdf(x |  mu, sigma, lambdap1half, p, q));
+}
+
+real constrained_sgt_lccdf(real x, real mu, real sigma, real lambdap1half, real pq, real q){
+  real p = pq / q;
+  return(sgt_lccdf(x | mu, sigma, lambdap1half, p, q));
+}
+
+real constrained_sgt_rng(real mu, real sigma, real lambdap1half, real pq, real q){
+  real p = pq / q;
+  return(sgt_rng(mu, sigma, lambdap1half, p, q));
+}
+
+// Constrained skew T distribution
+
+real constrained_skew_t_lpdf(real x, real mu, real sigma, real lambdap1half, real qmhalf){
+  real q = qmhalf + 1/2;
+  return(sgt_lpdf(x | mu, sigma, lambdap1half, 2, q));
+}
+
+real constrained_skew_t_lcdf(real x, real mu, real sigma, real lambdap1half, real qmhalf){
+  real q = qmhalf + 1/2;
+  return(sgt_lcdf(x |  mu, sigma, lambdap1half, 2, q));
+}
+
+real constrained_skew_t_lccdf(real x, real mu, real sigma, real lambdap1half, real qmhalf){
+  real q = qmhalf + 1/2;
+  return(sgt_lccdf(x | mu, sigma, lambdap1half, 2, q));
+}
+
+real constrained_skew_t_rng(real mu, real sigma, real lambdap1half, real qmhalf){
+  real q = qmhalf + 1/2;
   return(sgt_rng(mu, sigma, lambdap1half, 2, q));
 }
