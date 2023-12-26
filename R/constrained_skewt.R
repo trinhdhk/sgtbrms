@@ -35,7 +35,7 @@ constrained_skew_t_default_prior <- function(params = 'all', exclude=FALSE){
 }
 
 #' @rdname brms-methods
-log_lik_constrained_sgt <- function(i, prep) {
+log_lik_constrained_skew_t <- function(i, prep) {
   mu <- brms::get_dpar(prep, "mu", i = i)
   sigma <- brms::get_dpar(prep, "sigma", i=i)
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
@@ -54,7 +54,7 @@ log_lik_constrained_sgt <- function(i, prep) {
 }
 
 #' @rdname brms-methods
-posterior_predict_constrained_sgt <- function(i, prep, ...) {
+posterior_predict_constrained_skew_t <- function(i, prep, ...) {
   mu <- brms::get_dpar(prep, "mu", i = i)
   sigma <- brms::get_dpar(prep, "sigma", i=i)
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
@@ -72,7 +72,7 @@ posterior_predict_constrained_sgt <- function(i, prep, ...) {
 }
 
 #' @rdname brms-methods
-posterior_epred_constrained_sgt <- function(prep) {
+posterior_epred_constrained_skew_t <- function(prep) {
   mu <- brms::get_dpar(prep, "mu")
   sigma <- brms::get_dpar(prep, "sigma")
   lambdap1half <- brms::get_dpar(prep, "lambdap1half")
