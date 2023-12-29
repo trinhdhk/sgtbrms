@@ -5,6 +5,9 @@
 \alias{log_lik_constrained_sgt}
 \alias{posterior_predict_constrained_sgt}
 \alias{posterior_epred_constrained_sgt}
+\alias{log_lik_constrained_skew_t}
+\alias{posterior_predict_constrained_skew_t}
+\alias{posterior_epred_constrained_skew_t}
 \alias{log_lik_sgt}
 \alias{posterior_predict_sgt}
 \alias{posterior_epred_sgt}
@@ -19,11 +22,11 @@ posterior_predict_constrained_sgt(i, prep, ...)
 
 posterior_epred_constrained_sgt(prep)
 
-log_lik_constrained_sgt(i, prep)
+log_lik_constrained_skew_t(i, prep)
 
-posterior_predict_constrained_sgt(i, prep, ...)
+posterior_predict_constrained_skew_t(i, prep, ...)
 
-posterior_epred_constrained_sgt(prep)
+posterior_epred_constrained_skew_t(prep)
 
 log_lik_sgt(i, prep)
 

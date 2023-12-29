@@ -10,7 +10,7 @@ brm_sgt(
   formula,
   data,
   family = sgt(),
-  prior = sgt_default_prior(),
+  prior = "autosgt",
   autocor = NULL,
   data2 = NULL,
   cov_ranef = NULL,
@@ -55,7 +55,7 @@ make_stancode_sgt(
   formula,
   data,
   family = sgt(),
-  prior = sgt_default_prior(),
+  prior = "autosgt",
   autocor = NULL,
   data2 = NULL,
   cov_ranef = NULL,
@@ -75,7 +75,7 @@ make_standata_sgt(
   formula,
   data,
   family = sgt(),
-  prior = sgt_default_prior(),
+  prior = "autosgt",
   autocor = NULL,
   data2 = NULL,
   cov_ranef = NULL,
@@ -106,10 +106,7 @@ details of supported families see \code{\link[brms]{brmsfamily}}. By default, a
 linear \code{gaussian} model is applied. In multivariate models,
 \code{family} might also be a list of families.}
 
-\item{prior}{One or more \code{brmsprior} objects created by
-\code{\link[brms]{set_prior}} or related functions and combined using the
-\code{c} method or the \code{+} operator. See also  \code{\link[brms]{get_prior}}
-for more help.}
+\item{prior}{(string|brmsprior, default: 'autosgt'), a special keyword "autosgt" is set by default to infer the default prior from `_default_prior()`}
 
 \item{autocor}{(Deprecated) An optional \code{\link[brms]{cor_brms}} object
 describing the correlation structure within the response variable (i.e.,

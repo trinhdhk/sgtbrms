@@ -2,13 +2,18 @@
   fn <- get(brm_fn, envir=asNamespace('brms'))
   old_arg <- rlang::fn_fmls(fn)
   old_arg$family <- quote(sgt())
-  old_arg$prior <- quote(sgt_default_prior())
+  old_arg$prior <- 'autosgt'
   rlang::new_function(args=old_arg,
                       body = eval(enquote(substitute({
                         args <- rlang::fn_fmls_syms()
                         args_sub <- rlang::fn_fmls()
-                        if (family$name == "skew_t" && (!length(match.call()$prior)))
-                          args$prior <- quote(skew_t_default_prior())
+                        if (identical(prior, 'autosgt')){
+                          args$prior <- switch(family$name,
+                                               'sgt', quote(sgt_default_prior()),
+                                               'skew_t', quote(skew_t_default_prior()),
+                                               'constrained_sgt', quote(constrained_sgt_default_prior()),
+                                               'constrained_skew_t', quote(constrained_skew_t_default_prior()))
+                        }
                         sgt_vars <- brms::stanvar(scode=paste(readLines(system.file('stan', 'sgt.stan', package = 'sgtbrms')), collapse = '\n'), block = 'functions')
                         args$stanvars <- quote(c(sgt_vars, stanvars))
                         if (.report_call) cat('Call to: ', deparse1(rlang::call2(brm_fn, !!!args, .ns='brms')), '\n')
@@ -21,6 +26,7 @@
 #' Wrapper functions fitting brm model for sgt and skew_t families
 #' @description These functions callback to corresponding functions in brms package but with added stan codes for SGT and skew_t families
 #' @inheritParams brms::brm
+#' @param prior (string|brmsprior, default: 'autosgt'), a special keyword "autosgt" is set by default to infer the default prior from `_default_prior()`
 #' @seealso \link[brms]{brm}
 #' @export
 #' @return same as original function
