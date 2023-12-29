@@ -11,7 +11,7 @@
 constrained_sgt(
   link = "identity",
   link_sigma = "log",
-  link_qinv = "log",
+  link_q = "log",
   link_pq = "logm1",
   link_lambdap1half = "logit"
 )
