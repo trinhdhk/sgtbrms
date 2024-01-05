@@ -28,9 +28,15 @@ I provide wrappers for `make_stancode`, `make_standata` and `brm` with suffix `_
 X_sgt <- sgtbrms:::.__brm_wrap__('X')
 ```
 where X is a function in `brms`.
-The special case Skew T family where `p = 2` is also provided with `skew_t()`. 
+The special case Skew T family where `p = 2` and other subsets are also provided. See `help('sgt')`.
+
+## Change log
+
+- 0.2: [NEW] Symmetric SGT were added. [IMPROVED] Change the parametrisation of `constrained_sgt` for better numerical stability.
+- 0.1.2: [NEW] Constrained SGT and constrained Skew T were added.
+- 0.1: [NEW] Initial PoC commit
 
 All code is based on the implementation in the R package `sgt` by Carter Davis: [https://cran.r-project.org/package=sgt](https://cran.r-project.org/package=sgt).
 
-Trinh Dong, 2023.
+Trinh Dong, 2023-2024.
 

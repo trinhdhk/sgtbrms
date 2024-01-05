@@ -5,8 +5,8 @@
 constrained_sgt <- function(link='identity', link_sigma='log', link_logq='identity', link_pq='logm1', link_lambdap1half='logit'){
   brms::custom_family(
     name='constrained_sgt',
-    dpars=c('mu', 'sigma', 'lambdap1half', 'logq', 'pq'),
-    lb = c(NA, 0, 0, 0, 1),
+    dpars=c('mu', 'sigma', 'lambdap1half', 'pq', 'logq'),
+    lb = c(NA, 0, 0, 1, NA),
     ub = c(NA, NA, 1, NA, NA),
     links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, logq=link_logq, pq=link_pq),
     posterior_predict = posterior_predict_constrained_sgt,
