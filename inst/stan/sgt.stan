@@ -75,22 +75,26 @@ real skew_t_rng(real mu, real sigma, real lambdap1half, real q){
 
 // Constrained SGT distribution
 
-real constrained_sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real pq, real q){
+real constrained_sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real pq, real logq){
+  real q = exp(q);
   real p = pq / q;
   return(sgt_lpdf(x | mu, sigma, lambdap1half, p, q));
 }
 
-real constrained_sgt_lcdf(real x, real mu, real sigma, real lambdap1half, real pq, real q){
+real constrained_sgt_lcdf(real x, real mu, real sigma, real lambdap1half, real pq, real logq){
+  real q = exp(q);
   real p = pq / q;
   return(sgt_lcdf(x |  mu, sigma, lambdap1half, p, q));
 }
 
-real constrained_sgt_lccdf(real x, real mu, real sigma, real lambdap1half, real pq, real q){
+real constrained_sgt_lccdf(real x, real mu, real sigma, real lambdap1half, real pq, real logq){
+  real q = exp(q);
   real p = pq / q;
   return(sgt_lccdf(x | mu, sigma, lambdap1half, p, q));
 }
 
-real constrained_sgt_rng(real mu, real sigma, real lambdap1half, real pq, real q){
+real constrained_sgt_rng(real mu, real sigma, real lambdap1half, real pq, real logq){
+  real q = exp(q);
   real p = pq / q;
   return(sgt_rng(mu, sigma, lambdap1half, p, q));
 }
@@ -98,21 +102,40 @@ real constrained_sgt_rng(real mu, real sigma, real lambdap1half, real pq, real q
 // Constrained skew T distribution
 
 real constrained_skew_t_lpdf(real x, real mu, real sigma, real lambdap1half, real qmhalf){
-  real q = qmhalf + 1/2;
+  real q = qmhalf + 1.0/2;
   return(sgt_lpdf(x | mu, sigma, lambdap1half, 2, q));
 }
 
 real constrained_skew_t_lcdf(real x, real mu, real sigma, real lambdap1half, real qmhalf){
-  real q = qmhalf + 1/2;
+  real q = qmhalf + 1.0/2;
   return(sgt_lcdf(x |  mu, sigma, lambdap1half, 2, q));
 }
 
 real constrained_skew_t_lccdf(real x, real mu, real sigma, real lambdap1half, real qmhalf){
-  real q = qmhalf + 1/2;
+  real q = qmhalf + 1.0/2;
   return(sgt_lccdf(x | mu, sigma, lambdap1half, 2, q));
 }
 
 real constrained_skew_t_rng(real mu, real sigma, real lambdap1half, real qmhalf){
-  real q = qmhalf + 1/2;
+  real q = qmhalf + 1.0/2;
   return(sgt_rng(mu, sigma, lambdap1half, 2, q));
+}
+
+
+// Symmetric GT distribution
+
+real sym_gt_lpdf(real x, real mu, real sigma, real p, real q){
+  return(sgt_lpdf(x | mu, sigma, 0.5, p, q));
+}
+
+real sym_gt_lcdf(real x, real mu, real sigma, real p, real q){
+  return(sgt_lcdf(x |  mu, sigma, 0.5, p, q));
+}
+
+real sym_gt_lccdf(real x, real mu, real sigma, real p, real q){
+  return(sgt_lccdf(x | mu, sigma, 0.5, p, q));
+}
+
+real sym_gt_rng(real mu, real sigma, real p, real q){
+  return(sgt_rng(mu, sigma, 0.5, p, q));
 }

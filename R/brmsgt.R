@@ -8,11 +8,14 @@
                         args <- rlang::fn_fmls_syms()
                         args_sub <- rlang::fn_fmls()
                         if (identical(prior, 'autosgt')){
-                          args$prior <- switch(family$name,
-                                               'sgt', quote(sgt_default_prior()),
-                                               'skew_t', quote(skew_t_default_prior()),
-                                               'constrained_sgt', quote(constrained_sgt_default_prior()),
-                                               'constrained_skew_t', quote(constrained_skew_t_default_prior()))
+                          default_prior <- .__family_prior__(family$name)
+                          args$prior <- quote(default_prior())
+                          # args$prior <- switch(family$name,
+                          #                      'sgt', quote(sgt_default_prior()),
+                          #                      'skew_t', quote(skew_t_default_prior()),
+                          #                      'constrained_sgt', quote(constrained_sgt_default_prior()),
+                          #                      'constrained_skew_t', quote(constrained_skew_t_default_prior()),
+                          #                      'sym_gt', quote(sym_gt_default_prior()))
                         }
                         sgt_vars <- brms::stanvar(scode=paste(readLines(system.file('stan', 'sgt.stan', package = 'sgtbrms')), collapse = '\n'), block = 'functions')
                         args$stanvars <- quote(c(sgt_vars, stanvars))
@@ -26,7 +29,7 @@
 #' Wrapper functions fitting brm model for sgt and skew_t families
 #' @description These functions callback to corresponding functions in brms package but with added stan codes for SGT and skew_t families
 #' @inheritParams brms::brm
-#' @param prior (string|brmsprior, default: 'autosgt'), a special keyword "autosgt" is set by default to infer the default prior from `_default_prior()`
+#' @param prior (character|brmsprior, default: 'autosgt'), a special keyword "autosgt" is set by default to infer the default prior from `_default_prior()`
 #' @seealso \link[brms]{brm}
 #' @export
 #' @return same as original function
@@ -42,3 +45,6 @@ make_stancode_sgt <- .__brm_wrap__('make_stancode')
 #' @export
 make_standata_sgt <- .__brm_wrap__('make_standata')
 
+.__family_prior__ <- function(family){
+  get(paste0(family, '_default_prior'))
+}

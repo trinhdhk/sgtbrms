@@ -8,10 +8,13 @@
 #' A proper link function shall be \emph{tanh}.
 #' However, due to brms's limit options for link function, we lambda to lambdap1half = \eqn{\frac{lambda+1}{2}} and use the logit link.
 #' Hence the name "lambda p(lus) 1 then half".
-#' @details
-#' The constrained_ versions constraint p*q > 1 to ensure identifiability of the mean,
-#' but not as "generalised" due to the exclusion of the Cauchy-related branch.
-#' The mu of the param is still the mode though.
+#' @details |
+#'  The constrained_ versions constraint p*q > 1 to ensure identifiability of the mean,
+#'  but not as "generalised" due to the exclusion of the Cauchy-related branches.
+#'  The mu of the param is still the mode though.
+#'  There is some changes in the parametrisation to improve numerical stability.
+#'  The sym_gt family set lambda to 0 (or lambdap1half=0.5), i.e, no skewness. In this case, mu is the mean (if defined), mode, and median.
+#'  The skew_t, constrained skew_t families set p to 2.
 #'
 #' @return a `brms::custom_family` object
 #' @importFrom brms custom_family

@@ -1,5 +1,5 @@
 #' @rdname sgt
-#' @param link_qmhalf (string, default: log) link function for qmhalf = q-1/2. Must be > 0.
+#' @param link_qmhalf (character, default: log) link function for qmhalf = q-1/2. Must be > 0.
 #' @export
 constrained_skew_t <- function(link='identity', link_sigma='log', link_qmhalf='log', link_lambdap1half='logit'){
   brms::custom_family(

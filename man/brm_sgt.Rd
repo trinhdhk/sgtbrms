@@ -106,7 +106,7 @@ details of supported families see \code{\link[brms]{brmsfamily}}. By default, a
 linear \code{gaussian} model is applied. In multivariate models,
 \code{family} might also be a list of families.}
 
-\item{prior}{(string|brmsprior, default: 'autosgt'), a special keyword "autosgt" is set by default to infer the default prior from `_default_prior()`}
+\item{prior}{(character|brmsprior, default: 'autosgt'), a special keyword "autosgt" is set by default to infer the default prior from `_default_prior()`}
 
 \item{autocor}{(Deprecated) An optional \code{\link[brms]{cor_brms}} object
 describing the correlation structure within the response variable (i.e.,

@@ -1,10 +1,10 @@
 Package: sgtbrms
 Type: Package
 Title: Custom brmsfamily for fitting Skew generalised T regression model
-Version: 0.1.1
+Version: 0.2
 Author: Trinh Dong <trinhdhk@oucru.org>
 Maintainer: Trinh Dong <trinhdhk@oucru.org>
-Description: Custom brmsfamily for fitting Skew generalised T regression model. 
+Description: Custom brmsfamily for fitting Skew generalised T regression model. This package provides SGT related families to fit with `brms`, inspired by the eponymous R package.
 License: MIT
 Imports: 
   rlang,
