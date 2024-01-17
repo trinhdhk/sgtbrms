@@ -1,14 +1,14 @@
 #' @rdname sgt
-#' @param link_pq (character, default: logm1) link function for pq = p*q, must be > 1.
+#' @param link_logpq (character, default: identity) link function for logpq = log(p*q)-1.
 #' @param link_logq (character, default: identity) link function for log(q).
 #' @export
-constrained_sgt <- function(link='identity', link_sigma='log', link_logq='identity', link_logpqm1='identity', link_lambdap1half='logit'){
+constrained_sgt <- function(link='identity', link_sigma='log', link_logq='identity', link_logpq='identity', link_lambdap1half='logit'){
   brms::custom_family(
     name='constrained_sgt',
-    dpars=c('mu', 'sigma', 'lambdap1half', 'logpqm1', 'logq'),
+    dpars=c('mu', 'sigma', 'lambdap1half', 'logpq', 'logq'),
     lb = c(NA, 0, 0, NA, NA),
     ub = c(NA, NA, 1, NA, NA),
-    links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, logpqm1=link_logpqm1, logq=link_logq),
+    links=c(mu=link, sigma=link_sigma, lambdap1half=link_lambdap1half, logpq=link_logpq, logq=link_logq),
     posterior_predict = posterior_predict_constrained_sgt,
     posterior_epred = posterior_epred_constrained_sgt,
     log_lik = log_lik_constrained_sgt
@@ -22,11 +22,11 @@ constrained_sgt_default_prior <- function(params = 'all', exclude=FALSE){
     list(
       brms::prior(student_t(3, 0, 2.5), class='sigma', lb=0),
       brms::prior(beta(2,2), class='lambdap1half', lb=0, ub=1),
-      brms::prior(student_t(3, 0, 2.5), class='logpqm1'),
+      brms::prior(student_t(3, 0, 2.5), class='logpq'),
       brms::prior(student_t(3, 0, 2.5), class='logq')
     )
 
-  which <- c('sigma', 'lambdap1half', 'logpqm1','logq')
+  which <- c('sigma', 'lambdap1half', 'logpq','logq')
   if ('all' %in% params) {
     if (exclude) stop("Are you sure?") else params <- which
   }
@@ -42,9 +42,9 @@ log_lik_constrained_sgt <- function(i, prep) {
   sigma <- brms::get_dpar(prep, "sigma", i=i)
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
   logq <- brms::get_dpar(prep, "logq", i=i)
-  logpqm1 <- brms::get_dpar(prep, "logpqm1", i=i)
+  logpq <- brms::get_dpar(prep, "logpq", i=i)
   q <- exp(logq)
-  pq <- exp(logpqm1) + 1
+  pq <- exp(logpq) + 1
   p <- pq/q
   y <- prep$data$Y[i]
   mapply(sgt::dsgt,
@@ -63,8 +63,8 @@ posterior_predict_constrained_sgt <- function(i, prep, ...) {
   sigma <- brms::get_dpar(prep, "sigma", i=i)
   lambdap1half <- brms::get_dpar(prep, "lambdap1half", i=i)
   logq <- brms::get_dpar(prep, "logq", i=i)
-  logpqm1 <- brms::get_dpar(prep, "logpqm1", i=i)
-  pq <- exp(logpqm1) + 1
+  logpq <- brms::get_dpar(prep, "logpq", i=i)
+  pq <- exp(logpq) + 1
   q <- exp(logq)
   p <- pq/q
   mapply(sgt::rsgt,
@@ -83,8 +83,8 @@ posterior_epred_constrained_sgt <- function(prep) {
   sigma <- brms::get_dpar(prep, "sigma")
   lambdap1half <- brms::get_dpar(prep, "lambdap1half")
   logq <- brms::get_dpar(prep, "logq")
-  logpqm1 <- brms::get_dpar(prep, "logpqm1", i=i)
-  pq <- exp(logpqm1) + 1
+  logpq <- brms::get_dpar(prep, "logpq", i=i)
+  pq <- exp(logpq) + 1
   q <- exp(logq)
   p <- pq/q
   lambda <- lambdap1half * 2 - 1

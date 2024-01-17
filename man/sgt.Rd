@@ -13,7 +13,7 @@ constrained_sgt(
   link = "identity",
   link_sigma = "log",
   link_logq = "identity",
-  link_logpqm1 = "identity",
+  link_logpq = "identity",
   link_lambdap1half = "logit"
 )
 
@@ -48,6 +48,8 @@ sym_gt(link = "identity", link_sigma = "log", link_p = "log", link_q = "log")
 
 \item{link_logq}{(character, default: identity) link function for log(q).}
 
+\item{link_logpq}{(character, default: identity) link function for logpq = log(p*q)-1.}
+
 \item{link_lambdap1half}{(character, default: logit) link function for the skew parameter of SGT distribution.
 Note that the actual skew parameter of SGT is lambda where -1 < lambda < 1.
 A proper link function shall be \emph{tanh}.
@@ -57,8 +59,6 @@ Hence the name "lambda p(lus) 1 then half".}
 \item{link_qmhalf}{(character, default: log) link function for qmhalf = q-1/2. Must be > 0.}
 
 \item{link_p, link_q}{(character, default: log)  link function for the kurtosis parameters of SGT distribution}
-
-\item{link_pq}{(character, default: logm1) link function for pq = p*q, must be > 1.}
 }
 \value{
 a `brms::custom_family` object
@@ -81,5 +81,5 @@ y <- 3*x + 3*rt(1000,3,0)
 model <- brm_sgt(y ~ x, family=sgt(), prior=c(sgt_default_prior()), data=data.frame(x=x, y=y), chains=1, iter=1000)
 }
 \seealso{
-\link[brms]{dsgt}
+\link[sgt]{dsgt}
 }

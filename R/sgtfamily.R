@@ -18,7 +18,7 @@
 #'
 #' @return a `brms::custom_family` object
 #' @importFrom brms custom_family
-#' @seealso \link[brms]{dsgt}
+#' @seealso \link[sgt]{dsgt}
 #' @export
 #' @examples
 #' x <- rnorm(1000, 0, 1)
