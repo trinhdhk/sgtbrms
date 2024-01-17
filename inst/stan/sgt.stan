@@ -75,26 +75,30 @@ real skew_t_rng(real mu, real sigma, real lambdap1half, real q){
 
 // Constrained SGT distribution
 
-real constrained_sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real pq, real logq){
+real constrained_sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real logpq, real logq){
   real q = exp(logq);
-  real p = pq / q;
+ 	real pq = exp(logpq) + 1; 
+	real p = pq / q;
   return(sgt_lpdf(x | mu, sigma, lambdap1half, p, q));
 }
 
-real constrained_sgt_lcdf(real x, real mu, real sigma, real lambdap1half, real pq, real logq){
+real constrained_sgt_lcdf(real x, real mu, real sigma, real lambdap1half, real logpq, real logq){
   real q = exp(logq);
+	real pq = exp(logpq) + 1;
   real p = pq / q;
   return(sgt_lcdf(x |  mu, sigma, lambdap1half, p, q));
 }
 
-real constrained_sgt_lccdf(real x, real mu, real sigma, real lambdap1half, real pq, real logq){
+real constrained_sgt_lccdf(real x, real mu, real sigma, real lambdap1half, real logpq, real logq){
   real q = exp(logq);
+	real pq = exp(logpq) + 1;
   real p = pq / q;
   return(sgt_lccdf(x | mu, sigma, lambdap1half, p, q));
 }
 
-real constrained_sgt_rng(real mu, real sigma, real lambdap1half, real pq, real logq){
+real constrained_sgt_rng(real mu, real sigma, real lambdap1half, real logpq, real logq){
   real q = exp(logq);
+	real pq = exp(logpq) + 1;
   real p = pq / q;
   return(sgt_rng(mu, sigma, lambdap1half, p, q));
 }
