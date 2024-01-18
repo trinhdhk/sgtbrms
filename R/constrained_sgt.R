@@ -83,7 +83,7 @@ posterior_epred_constrained_sgt <- function(prep) {
   sigma <- brms::get_dpar(prep, "sigma")
   lambdap1half <- brms::get_dpar(prep, "lambdap1half")
   logq <- brms::get_dpar(prep, "logq")
-  logpq <- brms::get_dpar(prep, "logpq", i=i)
+  logpq <- brms::get_dpar(prep, "logpq")
   pq <- exp(logpq) + 1
   q <- exp(logq)
   p <- pq/q
