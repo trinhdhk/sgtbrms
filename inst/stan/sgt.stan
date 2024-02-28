@@ -12,7 +12,7 @@ real sgtv_lpdf(vector x, real mu, real sigma, real lambdap1half, real p, real q)
   real lambda = lambdap1half*2 - 1;
   real lpdf = 0;
   for (i in 1:num_elements(x)){
-    lpdf += sgt_lpdf(x[i], mu, sigma, lambdap1half, p, q);
+    lpdf += sgt_lpdf(x[i] | mu, sigma, lambdap1half, p, q);
   } 
   return lpdf;
 }
