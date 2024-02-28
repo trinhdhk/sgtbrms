@@ -8,6 +8,15 @@ real sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real p, real q){
   return (log(p)-log(2)-log(sigma)-log(q)/p-lbeta(1/p,q)-(1/p+q)*log1p(pow(abs(x-mu),p)/(q*pow(sigma,p)*pow(1+lambda*sgn(x-mu),p))));
 }
 
+real sgtv_lpdf(vector x, real mu, real sigma, real lambdap1half, real p, real q){
+  real lambda = lambdap1half*2 - 1;
+  real lpdf = 0;
+  for (i in 1:num_elements(x)){
+    lpdf += sgt_lpdf(x[i], mu, sigma, lambdap1half, p, q);
+  } 
+  return lpdf;
+}
+
 real sgt_invcdf(real prob, real mu, real sigma, real lambdap1half, real p, real q){
   real lambda = lambdap1half*2 - 1;
   // real p = 2;
