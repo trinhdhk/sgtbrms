@@ -1,0 +1,13 @@
+citHeader("To cite sgtbrms in publications use:")
+
+citEntry(
+  entry    = "misc",
+  title    = "Implementations of Skew Generalised T distribution in brms",
+  author   = "Trinh Dong",
+  year     = "2024",
+  url      = "github.com/trinhdhk/sgtbrms",
+  textVersion = paste(
+      "sgtbrms: A implementation of Skew Generalised T distribution in brms",
+      "(Trinh Dong, 2024)"
+  )
+)
