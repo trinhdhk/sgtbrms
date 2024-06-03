@@ -18,7 +18,8 @@
                           #                      'sym_gt', quote(sym_gt_default_prior()))
                         }
                         sgt_vars <- brms::stanvar(scode=paste(readLines(system.file('stan', 'sgt.stan', package = 'sgtbrms')), collapse = '\n'), block = 'functions')
-                        args$stanvars <- quote(c(sgt_vars, args$stanvars))
+                        stanvars <- args$stanvars
+                        args$stanvars <- quote(c(sgt_vars, stanvars))
                         if (.report_call) cat('Call to: ', deparse1(rlang::call2(brm_fn, !!!args, .ns='brms')), '\n')
                         rlang::eval_tidy(rlang::call2(brm_fn, !!!args, .ns='brms'))
                       }))))
