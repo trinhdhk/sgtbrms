@@ -21,14 +21,14 @@ brm_sgt(
   stanvars = NULL,
   stan_funs = NULL,
   fit = NA,
-  save_pars = NULL,
+  save_pars = getOption("brms.save_pars", NULL),
   save_ranef = NULL,
   save_mevars = NULL,
   save_all_pars = NULL,
   init = NULL,
   inits = NULL,
   chains = 4,
-  iter = 2000,
+  iter = getOption("brms.iter", 2000),
   warmup = floor(iter/2),
   thin = 1,
   cores = getOption("mc.cores", 1),
@@ -51,41 +51,9 @@ brm_sgt(
   ...
 )
 
-make_stancode_sgt(
-  formula,
-  data,
-  family = sgt(),
-  prior = "autosgt",
-  autocor = NULL,
-  data2 = NULL,
-  cov_ranef = NULL,
-  sparse = NULL,
-  sample_prior = "no",
-  stanvars = NULL,
-  stan_funs = NULL,
-  knots = NULL,
-  drop_unused_levels = TRUE,
-  threads = getOption("brms.threads", NULL),
-  normalize = getOption("brms.normalize", TRUE),
-  save_model = NULL,
-  ...
-)
+make_stancode_sgt(formula, ..., family = sgt(), prior = "autosgt")
 
-make_standata_sgt(
-  formula,
-  data,
-  family = sgt(),
-  prior = "autosgt",
-  autocor = NULL,
-  data2 = NULL,
-  cov_ranef = NULL,
-  sample_prior = "no",
-  stanvars = NULL,
-  threads = getOption("brms.threads", NULL),
-  knots = NULL,
-  drop_unused_levels = TRUE,
-  ...
-)
+make_standata_sgt(formula, ..., family = sgt(), prior = "autosgt")
 }
 \arguments{
 \item{formula}{An object of class \code{\link[stats:formula]{formula}},
@@ -195,7 +163,8 @@ very large \R objects even for models of moderate size and complexity.}
 variables defined in Stan's \code{parameters} block should be saved
 (default is \code{FALSE}). Saving these draws is required in order to
 apply the methods \code{bridge_sampler}, \code{bayes_factor}, and
-\code{post_prob}.}
+\code{post_prob}. Can be set globally for the current \R session via the
+\code{"brms.save_pars"} option (see \code{\link{options}}).}
 
 \item{init}{Initial values for the sampler. If \code{NULL} (the default) or
 \code{"random"}, Stan will randomly generate initial values for parameters
@@ -217,7 +186,8 @@ values you can consult the documentation of the selected \code{backend}.}
 \item{chains}{Number of Markov chains (defaults to 4).}
 
 \item{iter}{Number of total iterations per chain (including warmup; defaults
-to 2000).}
+to 2000). Can be set globally for the current \R session via the
+\code{"brms.iter"} option (see \code{\link{options}}).}
 
 \item{warmup}{A positive integer specifying number of warmup (aka burnin)
 iterations. This also specifies the number of iterations used for stepsize
@@ -267,7 +237,9 @@ section below. For a comprehensive overview see
 Options are \code{"sampling"} for MCMC (the default), \code{"meanfield"} for
 variational inference with independent normal distributions,
 \code{"fullrank"} for variational inference with a multivariate normal
-distribution, or \code{"fixed_param"} for sampling from fixed parameter
+distribution, \code{"pathfinder"} for the pathfinder algorithm,
+\code{"laplace"} for the laplace approximation,
+or \code{"fixed_param"} for sampling from fixed parameter
 values. Can be set globally for the current \R session via the
 \code{"brms.algorithm"} option (see \code{\link{options}}).}
 

@@ -82,6 +82,25 @@ real skew_t_rng(real mu, real sigma, real lambdap1half, real q){
   return(sgt_rng(mu, sigma, lambdap1half, 2, q));
 }
 
+// Skew GED distribution
+
+real skew_ged_lpdf(real x, real mu, real sigma, real lambdap1half, real p){
+  return(sgt_lpdf(x | mu, sigma, lambdap1half, p, 1e9));
+}
+
+real skew_ged_lcdf(real x, real mu, real sigma, real lambdap1half, real p){
+  return(sgt_lcdf(x |  mu, sigma, lambdap1half, p, 1e9));
+}
+
+real skew_ged_lccdf(real x, real mu, real sigma, real lambdap1half, real p){
+  return(sgt_lccdf(x | mu, sigma, lambdap1half, p, 1e9));
+}
+
+real skew_ged_rng(real mu, real sigma, real lambdap1half, real p){
+  return(sgt_rng(mu, sigma, lambdap1half, p, 1e9));
+}
+
+
 // Constrained SGT distribution
 
 real constrained_sgt_lpdf(real x, real mu, real sigma, real lambdap1half, real logpq, real logq){
