@@ -64,7 +64,7 @@ posterior_epred_skew_ged <- function(prep) {
   mu <- brms::get_dpar(prep, "mu")
   sigma <- brms::get_dpar(prep, "sigma")
   lambdap1half <- brms::get_dpar(prep, "lambdap1half")
-  q <- 1e9
+  q <- 1e5
   p <- brms::get_dpar(prep, "p", i=i)
   lambda <- lambdap1half * 2 - 1
   mu - (2 * sigma * lambda * q^(1/p) * beta(2/p, q - 1/p))/beta(1/p, q)
